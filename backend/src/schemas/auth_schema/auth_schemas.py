@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field, validator
+from typing import Optional
 import re
 
 class PasswordStr(BaseModel):
@@ -14,7 +15,7 @@ class RegisterUser(BaseModel):
     email: EmailStr
     username: str
     password: PasswordStr
-    phone_number: str = Field(min_length=10, max_length=15)
+    phone_number: Optional[str] = Field(min_length=10, max_length=15)
     @validator('phone_number')
     def validate_phone_number(cls, v):
         if not re.match(r'^\+[1-9]\d{1,14}$', v):
